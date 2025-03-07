@@ -58,5 +58,4 @@ services:
 
 networks:
   default:
-    external:
-      name: easy-market
+    name: easy-market
