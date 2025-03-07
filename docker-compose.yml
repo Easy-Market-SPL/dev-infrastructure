@@ -1,0 +1,62 @@
+services:
+  discovery:
+    image: discovery
+    build:
+      context: https://github.com/Easy-Market-SPL/discovery-service.git
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+    networks:
+      - default
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+
+  config-server:
+    image: config-server
+    build:
+      context: https://github.com/Easy-Market-SPL/config-server.git
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+    networks:
+      - default
+    environment:
+      - DOPPLER_TOKEN=${CONFIG_TOKEN}
+    depends_on:
+      discovery:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8888/actuator/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+    
+  api-gateway:
+    image: api-gateway
+    build:
+      context: https://github.com/Easy-Market-SPL/api-gateway.git
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - default
+    environment:
+      - DOPPLER_TOKEN=${CONFIG_TOKEN}
+    depends_on:
+      discovery:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+
+networks:
+  default:
+    external:
+      name: easy-market
