@@ -37,7 +37,7 @@ services:
   api-gateway:
     image: api-gateway
     build:
-      context: https://github.com/Easy-Market-SPL/api-gateway.git
+      context: C:\Users\esteb\Documents\Tesis\back\infrastructure\api-gateway
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
@@ -52,6 +52,28 @@ services:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+  
+  users-service:
+    image: users-service
+    build:
+      context: https://github.com/Easy-Market-SPL/users-service.git#develop
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    networks:
+      - default
+    environment:
+      - DOPPLER_TOKEN=${BACK_TOKEN}
+    depends_on:
+      discovery:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/actuator/health"]
       interval: 10s
       timeout: 10s
       retries: 3
