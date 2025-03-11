@@ -37,7 +37,7 @@ services:
   api-gateway:
     image: api-gateway
     build:
-      context: C:\Users\esteb\Documents\Tesis\back\infrastructure\api-gateway
+      context: https://github.com/Easy-Market-SPL/api-gateway.git
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
