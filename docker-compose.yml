@@ -78,6 +78,28 @@ services:
       timeout: 10s
       retries: 3
 
+  products-service:
+    image: users-service
+    build:
+      context: https://github.com/Easy-Market-SPL/products-service.git
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    networks:
+      - default
+    environment:
+      - DOPPLER_TOKEN=${BACK_TOKEN}
+    depends_on:
+      discovery:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8082/actuator/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+
 networks:
   default:
     name: easy-market
