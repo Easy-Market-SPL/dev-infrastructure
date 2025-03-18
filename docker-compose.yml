@@ -79,7 +79,7 @@ services:
       retries: 3
 
   products-service:
-    image: users-service
+    image: products-service
     build:
       context: https://github.com/Easy-Market-SPL/products-service.git
       dockerfile: Dockerfile
