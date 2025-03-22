@@ -106,7 +106,7 @@ services:
       context: https://github.com/Easy-Market-SPL/orders-service.git
       dockerfile: Dockerfile
     ports:
-      - "8083:8082"
+      - "8083:8083"
     networks:
       - default
     environment:
