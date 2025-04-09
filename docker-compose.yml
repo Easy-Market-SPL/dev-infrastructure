@@ -123,7 +123,7 @@ services:
       retries: 3
   
   reviews-service:
-    image: orders-service
+    image: reviews-service
     build:
       context: https://github.com/Easy-Market-SPL/reviews-service.git
       dockerfile: Dockerfile
