@@ -121,6 +121,28 @@ services:
       interval: 10s
       timeout: 10s
       retries: 3
+  
+  reviews-service:
+    image: orders-service
+    build:
+      context: https://github.com/Easy-Market-SPL/reviews-service.git
+      dockerfile: Dockerfile
+    ports:
+      - "8084:8084"
+    networks:
+      - default
+    environment:
+      - DOPPLER_TOKEN=${BACK_TOKEN}
+    depends_on:
+      discovery:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8083/actuator/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
 
 networks:
   default:
