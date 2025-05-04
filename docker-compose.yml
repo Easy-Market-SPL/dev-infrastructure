@@ -59,7 +59,7 @@ services:
   users-service:
     image: users-service
     build:
-      context: https://github.com/Easy-Market-SPL/users-service.git#develop
+      context: https://github.com/Easy-Market-SPL/users-service.git
       dockerfile: Dockerfile
     ports:
       - "8081:8081"
@@ -81,7 +81,7 @@ services:
   products-service:
     image: products-service
     build:
-      context: https://github.com/Easy-Market-SPL/products-service.git#develop
+      context: https://github.com/Easy-Market-SPL/products-service.git
       dockerfile: Dockerfile
     ports:
       - "8082:8082"
