@@ -1,12 +1,9 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2025-02-10 18:17:58.927
+-- Last modification date: 2025-05-14 19:23:25.249
 
 -- foreign keys
 ALTER TABLE address
     DROP CONSTRAINT address_user;
-
-ALTER TABLE color
-    DROP CONSTRAINT color_product;
 
 ALTER TABLE label_product
     DROP CONSTRAINT label_product_label;
@@ -19,6 +16,15 @@ ALTER TABLE order_product
 
 ALTER TABLE order_status
     DROP CONSTRAINT order_status_order;
+
+ALTER TABLE payment_method
+    DROP CONSTRAINT payment_method_user;
+
+ALTER TABLE product_color
+    DROP CONSTRAINT product_color_color;
+
+ALTER TABLE product_color
+    DROP CONSTRAINT product_color_product;
 
 ALTER TABLE review
     DROP CONSTRAINT review_product;
@@ -44,7 +50,11 @@ DROP TABLE order_product;
 
 DROP TABLE order_status;
 
+DROP TABLE payment_method;
+
 DROP TABLE product;
+
+DROP TABLE product_color;
 
 DROP TABLE review;
 
