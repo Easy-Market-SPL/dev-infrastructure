@@ -1,4 +1,13 @@
+#################################################
+# DOCKER COMPOSE FILE FOR EASY MARKET BACKEND
+# 
+# Usage:
+#   start:      doppler run -- docker-compose up --build -d
+#   stop:       docker-compose down
+#################################################
+
 services:
+  # EUREKA DISCOVERY SERVER
   discovery:
     image: discovery
     build:
@@ -14,12 +23,12 @@ services:
       timeout: 10s
       retries: 3
 
+  # POSTGRESQL DATABASE - with initial db creation script
   postgres:
     image: postgres:16-alpine
     container_name: postgres
     restart: unless-stopped
     environment:
-      # ¡Ajusta estos valores según tus necesidades!
       - POSTGRES_USER=neondb_owner
       - POSTGRES_PASSWORD=npg_AtZq7BynGr6T
       - POSTGRES_DB=neondb
@@ -36,6 +45,7 @@ services:
       timeout: 5s
       retries: 5
 
+  # CONFIG SERVER - configures the services with git repository
   config-server:
     image: config-server
     build:
@@ -56,6 +66,7 @@ services:
       timeout: 10s
       retries: 3
     
+  # API GATEWAY - routes requests to the appropriate service
   api-gateway:
     image: api-gateway
     build:
@@ -77,7 +88,11 @@ services:
       interval: 10s
       timeout: 10s
       retries: 3
-  
+
+  ###################
+  # BACKEND SERVICES
+  ###################
+  # USERS SERVICE - manages user accounts
   users-service:
     image: users-service
     build:
@@ -100,6 +115,7 @@ services:
       timeout: 10s
       retries: 3
 
+  # PRODUCTS SERVICE - manages product listings
   products-service:
     image: products-service
     build:
@@ -122,6 +138,7 @@ services:
       timeout: 10s
       retries: 3
   
+  # ORDERS SERVICE - manages customer orders
   orders-service:
     image: orders-service
     build:
@@ -144,6 +161,7 @@ services:
       timeout: 10s
       retries: 3
   
+  # REVIEWS SERVICE - manages product reviews
   reviews-service:
     image: reviews-service
     build:
@@ -166,9 +184,9 @@ services:
       timeout: 10s
       retries: 3
 
+
 networks:
   default:
     name: easy-market
-
 volumes:
   postgres_data:

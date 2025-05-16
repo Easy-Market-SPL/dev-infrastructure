@@ -80,13 +80,13 @@ CREATE TABLE payment_method (
     phone varchar(15)  NOT NULL,
     expiry_date varchar(6)  NOT NULL,
     card_hoder_name varchar(100)  NOT NULL,
-    user_id varchar(36)  NOT NULL,
     city varchar(30)  NOT NULL,
     first_line varchar(100)  NOT NULL,
     second_line varchar(100)  NOT NULL,
     country varchar(25)  NOT NULL,
     postal_code varchar(10)  NOT NULL,
     state_name varchar(25)  NOT NULL,
+    user_id varchar(36)  NOT NULL,
     CONSTRAINT payment_method_pk PRIMARY KEY (id_payment_method)
 );
 
@@ -301,4 +301,3 @@ CREATE SEQUENCE variant_seq
 ;
 
 -- End of file.
-
